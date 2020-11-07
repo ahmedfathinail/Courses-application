@@ -1,0 +1,92 @@
+﻿@model CourseApplication.Models.CourseListModel
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>Courses</h2>
+
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Course", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Query)&nbsp;
+        @Html.TextBoxFor(m => m.Query, new { @class = "form-control" })&nbsp;
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.TrainerId)&nbsp;
+        @Html.DropDownListFor(c => c.TrainerId, Model.Trainers, "--Select Trainer--", new { @class = "form-control" })&nbsp;
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId)&nbsp;
+        @Html.DropDownListFor(c => c.CategoryId, Model.Categories, "--Select Category--", new { @class = "form-control" })&nbsp;
+    </div>
+
+    <input type="submit" value="Search" class="btn btn-primary"/>
+}
+
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Courses.First().Image_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Courses.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Courses.First().Creation_Date)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Courses.First().Category_Name)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Courses.First().TrainerName)
+        </th>
+        <th>
+            Trainees
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Courses) {
+    <tr>
+        <td>
+            <img src="~/Uploads/Courses/@item.Image_ID" style="width: 75px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creation_Date)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Category_Name)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.TrainerName)
+        </td>
+        <td>
+            @Html.ActionLink("Trainees", "Index", "Trainee", new { CId = item.ID},new { @class = "btn btn-primary"})
+        </td>
+      
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Contents", "Index", "CourseUnits", new { courseId=item.ID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

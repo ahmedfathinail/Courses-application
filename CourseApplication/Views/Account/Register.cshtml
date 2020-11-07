@@ -1,0 +1,114 @@
+﻿@model CourseApplication.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        @if (Model != null && string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-dengar">
+                @Model.Message
+            </div>
+        }
+        <div class="card card-signin my-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">Register</h5>
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-signin" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-label-group">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name" })
+                        @Html.LabelFor(m => m.Name)
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-label-group">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email address" })
+                        @Html.LabelFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-label-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.LabelFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        @*<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                            <label for="inputPassword">Password</label>*@
+                    </div>
+                    <div class="form-label-group">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "ConfirmPassword" })
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                        @*<div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Remember password</label>
+                        </div>*@
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-lg btn-primary btn-block text-uppercase" value="Register">
+                    </div>
+                        <hr class="my-4">
+                        @Html.ActionLink("Login", "Login", "Account",null ,new { @class = "btn btn-lg btn-success btn-block text-uppercase" })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div id="user-auth">
+    <div class="container">
+        <div id="user-auth-row" class="row justify-content-center align-items-center">
+            <div id="user-auth-column" class="col-md-6">
+                <div id="user-auth-box" class="col-md-12">
+                   @using (Html.BeginForm())
+                   { 
+                       @Html.AntiForgeryToken()
+                       @Html.ValidationSummary()
+                        <h3 class="text-center text-info">Login</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new { @class = "text-info" })
+                            @Html.TextBoxFor(m=>m.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "text-info" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "text-info" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "text-info" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m=>m.ConfirmPassword,"", new { @class = "text-danger" })
+                        </div>
+                     
+                        <div class="form-group">
+                            <div id="register-link" class="text-right">
+                                @Html.ActionLink("Login", "Login", "Account", null,new { @class = "text-info" })
+                            </div>
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Register">
+                        </div>
+
+                   }
+                </div>
+
+                @if (Model != null && !string.IsNullOrEmpty(Model.Message))
+                {
+                    <div class="alert alert-dengar">
+                        @Model.Message
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>*@
